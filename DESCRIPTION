@@ -1,20 +1,17 @@
 Package: SmartSVA
 Type: Package
 Title: Implementation of Smart SVA
-Version: 0.1.0
+Version: 0.1.1
 Author: Jun Chen <Chen.Jun2@mayo.edu>, Ehsan Behnam <behnamgh@usc.edu>
 Maintainer: Jun Chen <Chen.Jun2@mayo.edu>
-Description: Introduces an improved Surrogate Variable Analysis
-    algorithm that automatically captures salient features from data in the presence
-    of confounding factors. The algorithm is based on the popular 'SVA' package and
-    proposes a revision on it that achieves 10 times faster running time while
-    trading no accuracy loss in return.
+Description: Introduces a fast and efficient Surrogate Variable Analysis algorithm that captures variation of unknown sources (batch effects) for high-dimensional genomic data. The algorithm is based on the popular 'SVA' package and proposes a revision on it that achieves more than 10 times faster running time while trading no accuracy loss in return.
 License: GPL-3
-Depends: sva, isva
+Depends: R (>= 3.1.0), sva, isva
+Imports: Rcpp, stats, utils
+LinkingTo: Rcpp, RcppEigen
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 5.0.1
-NeedsCompilation: no
-Packaged: 2016-11-11 21:41:04 UTC; Ehsan
+NeedsCompilation: yes
+Packaged: 2016-11-23 17:21:51 UTC; chenjun
 Repository: CRAN
-Date/Publication: 2016-11-13 16:57:27
+Date/Publication: 2016-11-24 00:05:49

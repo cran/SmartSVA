@@ -1,4 +1,8 @@
-b33a8ecb76f09b29918261a0f9784a8f *DESCRIPTION
-c9280a79bb91f22773a8d58764fddd1e *NAMESPACE
-309fd78e1b824108343f60eb6acb9ecf *R/SmartSVA.R
-ca25d1e0444cb1569f6e2f454093b66a *man/smartsva.Rd
+5cf55370d28428af9c15276fd4973b7a *DESCRIPTION
+59e5cf78c48fb5a49ef0b9287b9c437c *NAMESPACE
+bafd2ad0db1f508eb93e0a8df95e4895 *R/RcppExports.R
+f14325ca1abbf87defc3f0db608492f7 *R/SmartSVA.R
+09f5ad1c34990d8447a741a8b2c269f9 *man/smartsva.Rd
+bf930509c249b572568b4b459381ea73 *man/smartsva.cpp.Rd
+73653a4482fa4fa622e816ba5b0bb0db *src/RcppExports.cpp
+06c671237d1b10b853c367f89cdec82e *src/functions.cpp
