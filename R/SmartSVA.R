@@ -136,7 +136,7 @@ smartsva <-  function(dat, mod, mod0 = NULL, n.sv, B = 100,
   df00 <- dim(orth00)[2]
 
   if (VERBOSE)
-    cat(paste("Iteration (out of", B, "):"))
+    cat(paste("Iteration (out of", B, "):\n"))
 
   i = 0
   rho = 0
@@ -175,7 +175,7 @@ smartsva <-  function(dat, mod, mod0 = NULL, n.sv, B = 100,
   }
 
   sv <- uu[, 1:n.sv]
-  retval <- list(sv = sv, rho = rho, iter = i, n.sv = n.sv)
+  retval <- list(sv = sv, n.sv = n.sv, pprob.gam = pprob.gam, pprob.b = pprob.b, rho = rho, iter = i)
   return(retval)
 }
 
@@ -269,7 +269,7 @@ smartsva.cpp <-  function(dat, mod, mod0 = NULL, n.sv, B = 100,
 	df00 <- dim(orth00)[2]
 	
 	if (VERBOSE)
-		cat(paste("Iteration (out of", B, "):"))
+		cat(paste("Iteration (out of", B, "):\n"))
 	
 	i = 0
 	rho = 0
@@ -308,6 +308,7 @@ smartsva.cpp <-  function(dat, mod, mod0 = NULL, n.sv, B = 100,
 	}
 	
 	sv <- uu[, 1:n.sv]
-	retval <- list(sv = sv, rho = rho, iter = i, n.sv = n.sv)
+	retval <- list(sv = sv, n.sv = n.sv, pprob.gam = pprob.gam, pprob.b = pprob.b, rho = rho, iter = i)
 	return(retval)
 }
+

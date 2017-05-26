@@ -1,8 +1,8 @@
-5cf55370d28428af9c15276fd4973b7a *DESCRIPTION
-59e5cf78c48fb5a49ef0b9287b9c437c *NAMESPACE
+fd0232cc76f2e6fb9f5f35d7a9ddc7ca *DESCRIPTION
+ddf592a8539f5080bada808cbb50086a *NAMESPACE
 bafd2ad0db1f508eb93e0a8df95e4895 *R/RcppExports.R
-f14325ca1abbf87defc3f0db608492f7 *R/SmartSVA.R
-09f5ad1c34990d8447a741a8b2c269f9 *man/smartsva.Rd
-bf930509c249b572568b4b459381ea73 *man/smartsva.cpp.Rd
+22aaedbdceb012603e6c55f6cc739011 *R/SmartSVA.R
+19ee81a6869c89c57fd16e9aaf57721a *man/smartsva.cpp.Rd
 73653a4482fa4fa622e816ba5b0bb0db *src/RcppExports.cpp
 06c671237d1b10b853c367f89cdec82e *src/functions.cpp
+7c22b1b500cab25872924e218f1645f5 *src/registerDynamicSymbol.c
