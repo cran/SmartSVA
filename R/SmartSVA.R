@@ -117,66 +117,66 @@ f.pval <- function (dat, orth11, orth01, y.norm, rss00, df00)  {
 #'
 #' @export
 smartsva <-  function(dat, mod, mod0 = NULL, n.sv, B = 100,
-                      alpha=0.25, epsilon=1e-3, VERBOSE = F) {
-  if (is.null(mod0)) {
-    mod0 <- mod[, 1]
-  }
-
-  qr.obj <- qr(mod)
-  orth1 <- qr.Q(qr.obj)
-  uu <- eigen(crossprod(dat - tcrossprod(dat %*% orth1, orth1)),
-              symmetric=T)$vectors[, 1:n.sv, drop=F]
-
-  # Precompute the quantites
-  y.norm <- rowSums(dat * dat)
-  mod00 <- cbind(mod0)
-  orth00 <- qr.Q(qr(mod00))
-  prj00 <- dat %*% orth00
-  rss00 <- y.norm - rowSums(prj00 * prj00)
-  df00 <- dim(orth00)[2]
-
-  if (VERBOSE)
-    cat(paste("Iteration (out of", B, "):\n"))
-
-  i = 0
-  rho = 0
-
-  while (i < B && rho < 1 - epsilon) {
-    i <- i + 1
-    mod11 <- cbind(mod, uu)
-    mod01 <- cbind(mod0, uu)
-
-    orth11 <- qr.Q(qr(mod11))
-    orth01<- qr.Q(qr(mod01))
-
-    ptmp <- f.pval(dat, orth11, orth01, y.norm, rss00, df00)
-
-    if (i == 1) {
-      pprob.b <- (1 - edge.lfdr(ptmp[['p1']])^alpha)
-    } else {
-      pprob.b <- (1 - edge.lfdr(ptmp[['p1']]))
-    }
-
-    pprob.gam <- (1 - edge.lfdr(ptmp[['p2']]))
-    pprob <- pprob.gam * (1 - pprob.b)
-
-    uu <- eigen(crossprod(dat * pprob - rowMeans(dat * pprob)),
-                symmetric=T)$vectors[, 1:n.sv, drop=F]
-    # Update spearman Rho.
-    if (i > 1) {
-      rho <- cor(x=pprob, y=p.prev, use="pairwise.complete.obs",
-                 method="spearman")
-      p.prev <- pprob
-    }else{
-      p.prev <- pprob
-    }
-    if (VERBOSE)
-      cat(paste(i, " ", rho, "\n"))
-  }
-
-  sv <- uu[, 1:n.sv]
-  retval <- list(sv = sv, n.sv = n.sv, pprob.gam = pprob.gam, pprob.b = pprob.b, rho = rho, iter = i)
-  return(retval)
+		alpha=0.25, epsilon=1e-3, VERBOSE = F) {
+	if (is.null(mod0)) {
+		mod0 <- mod[, 1]
+	}
+	
+	qr.obj <- qr(mod)
+	orth1 <- qr.Q(qr.obj)
+	uu <- eigen(crossprod(dat - tcrossprod(dat %*% orth1, orth1)),
+			 symmetric=TRUE)$vectors[, 1:n.sv, drop=F]
+	
+	# Precompute the quantites
+	y.norm <- rowSums(dat * dat)
+	mod00 <- cbind(mod0)
+	orth00 <- qr.Q(qr(mod00))
+	prj00 <- dat %*% orth00
+	rss00 <- y.norm - rowSums(prj00 * prj00)
+	df00 <- dim(orth00)[2]
+	
+	if (VERBOSE)
+		cat(paste("Iteration (out of", B, "):\n"))
+	
+	i = 0
+	rho = 0
+	
+	while (i < B && rho < 1 - epsilon) {
+		i <- i + 1
+		mod11 <- cbind(mod, uu)
+		mod01 <- cbind(mod0, uu)
+		
+		orth11 <- qr.Q(qr(mod11))
+		orth01<- qr.Q(qr(mod01))
+		
+		ptmp <- f.pval(dat, orth11, orth01, y.norm, rss00, df00)
+		
+		if (i == 1) {
+			pprob.b <- (1 - edge.lfdr(ptmp[['p1']])^alpha)
+		} else {
+			pprob.b <- (1 - edge.lfdr(ptmp[['p1']]))
+		}
+		
+		pprob.gam <- (1 - edge.lfdr(ptmp[['p2']]))
+		pprob <- pprob.gam * (1 - pprob.b)
+		
+		uu <- eigen(crossprod(dat * pprob - rowMeans(dat * pprob)),
+				symmetric=TRUE)$vectors[, 1:n.sv, drop=F]
+		# Update spearman Rho.
+		if (i > 1) {
+			rho <- cor(x=pprob, y=p.prev, use="pairwise.complete.obs",
+					method="spearman")
+			p.prev <- pprob
+		}else{
+			p.prev <- pprob
+		}
+		if (VERBOSE)
+			cat(paste(i, " ", rho, "\n"))
+	}
+	
+	sv <- uu[, 1:n.sv, drop=F]
+	retval <- list(sv = sv, n.sv = n.sv, pprob.gam = pprob.gam, pprob.b = pprob.b, rho = rho, iter = i)
+	return(retval)
 }
 
 #' @importFrom "stats" "cor" "pf"
@@ -249,6 +249,7 @@ f.pval.cpp <- function (dat, orth11, orth01, y.norm, rss00, df00)  {
 #' sv.obj <- smartsva.cpp(Y, mod, mod0=NULL, n.sv=n.sv)
 #'
 #' @export
+
 smartsva.cpp <-  function(dat, mod, mod0 = NULL, n.sv, B = 100,
 		alpha=0.25, epsilon=1e-3, VERBOSE = F) {
 	if (is.null(mod0)) {
@@ -257,8 +258,8 @@ smartsva.cpp <-  function(dat, mod, mod0 = NULL, n.sv, B = 100,
 	
 	qr.obj <- qr(mod)
 	orth1 <- qr.Q(qr.obj)
-	uu <- eigen(crossprodCpp(dat - tcrossprodCpp(prodCpp(dat, orth1), orth1)),
-			symmetric=T)$vectors[, 1:n.sv, drop=F]
+	uu <- eigs_sym(crossprodCpp(dat - tcrossprodCpp(prodCpp(dat, orth1), orth1)),
+			k=n.sv)$vectors[, 1:n.sv, drop=F]
 	
 	# Precompute the quantites
 	y.norm <- rowSums(dat * dat)
@@ -293,8 +294,8 @@ smartsva.cpp <-  function(dat, mod, mod0 = NULL, n.sv, B = 100,
 		pprob.gam <- (1 - edge.lfdr(ptmp[['p2']]))
 		pprob <- pprob.gam * (1 - pprob.b)
 		
-		uu <- eigen(crossprodCpp(dat * pprob - rowMeans(dat * pprob)),
-				symmetric=T)$vectors[, 1:n.sv, drop=F]
+		uu <- eigs_sym(crossprodCpp(dat * pprob - rowMeans(dat * pprob)),
+				k=n.sv)$vectors[, 1:n.sv, drop=F]
 		# Update spearman Rho.
 		if (i > 1) {
 			rho <- cor(x=pprob, y=p.prev, use="pairwise.complete.obs",
@@ -307,8 +308,10 @@ smartsva.cpp <-  function(dat, mod, mod0 = NULL, n.sv, B = 100,
 			cat(paste(i, " ", rho, "\n"))
 	}
 	
-	sv <- uu[, 1:n.sv]
+	sv <- uu[, 1:n.sv, drop=FALSE]
 	retval <- list(sv = sv, n.sv = n.sv, pprob.gam = pprob.gam, pprob.b = pprob.b, rho = rho, iter = i)
 	return(retval)
 }
+
+
 

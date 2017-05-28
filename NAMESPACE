@@ -4,6 +4,7 @@ useDynLib(SmartSVA, .registration = TRUE)
 
 import(isva)
 import(sva)
+import(RSpectra)
 importFrom("stats","cor")
 importFrom("stats","density")
 importFrom("stats","dnorm")

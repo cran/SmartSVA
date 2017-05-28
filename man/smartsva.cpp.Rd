@@ -33,7 +33,7 @@ Returns a list containing the surrogate variables  and some meta data about the 
 \description{The traditional SVA uses a fixed number of iterations. In highly-confounded scenarios (i.e., biological effects 
 are confounded with batch effects), a large number of iterations are needed to achieve optimal results and better false positive control. SmartSVA thus imposes an explicit
 convergence criterion to improve the robustness of SVA.  Moreover, we use three strategies to accelerate the computation: (1) more efficient initialization by using \code{alpha}; 
-(2) QR decomposition to reduce the computational complexity; (3) Further acceleration using RcppEigen. Based on empirical studies, SmartSVA achieves is 10-25 times faster than traditional 
+(2) QR decomposition to reduce the computational complexity; (3) Further acceleration using RcppEigen. Based on empirical studies, SmartSVA achieves is 10-50 times faster than traditional 
 SVA on large data sets if the same convergence criterion is imposed.
 }
 
